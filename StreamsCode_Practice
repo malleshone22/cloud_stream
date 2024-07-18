@@ -1,0 +1,318 @@
+package com.cts.streams.programs;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class GetHighest_Lowest_Value {
+
+	public void getPatterns() {
+		printSumOfAllNumbers();
+		/*
+		 * HashMap<Employee, Integer> results = new HashMap<>();
+		 * 
+		 * results.put(new Employee(9, "mallesh", "hcl", 20000), 79); results.put(new
+		 * Employee(54, "satwik", "cognizant", 1000000), 89); results.put(new
+		 * Employee(67, "kumar", "infosys", 39877), 87); results.put(new Employee(23,
+		 * "thirupal", "tcs", 890000), 90)
+		 */;
+		 // results.put(new Employee(66, "mohan", "page", 670000), 88);
+
+
+		 Department hrDept = new Department(1, "HR");
+		 Department corpDept = new Department(2, "CORP");
+		 Department itDept = new Department(3, "IT");
+		 Department markDept = new Department(3, "MKT");
+		 Map<Integer, Employee> empMap = new HashMap<>();
+		 empMap.put(1, new Employee(1, "Harsh", 1000L, "Harsh@gmail.com", hrDept));
+		 empMap.put(2, new Employee(2, "Harshita", 2000L, "Harshitha@gmail.com", hrDept));
+		 empMap.put(3, new Employee(3, "Harshad", 1000L, "Harshad@gmail.com", hrDept));
+		 empMap.put(4, new Employee(4, "Harshneeta", 4000L, "Harshneeta@gmail.com", hrDept));
+		 empMap.put(5, new Employee(5, "Harshal", 2000L, "Harshal@gmail.com", hrDept));
+		 empMap.put(6, new Employee(6, "Harshali", 3000L, "Harshali@gmail.com", hrDept));
+		 empMap.put(11, new Employee(11, "Harshi", 1000L, "Harsh@gmail.com", corpDept));
+		 empMap.put(12, new Employee(12, "Harshita", 2000L, "Harshitha@gmail.com", corpDept));
+		 empMap.put(13, new Employee(13, "Harshad", 1000L, "Harshad@gmail.com", corpDept));
+		 empMap.put(14, new Employee(14, "Harshneeta", 4000L, "Harshneeta@gmail.com", itDept));
+		 empMap.put(15, new Employee(15, "Harshal", 2000L, "Harshal@gmail.com", itDept));
+		 empMap.put(16, new Employee(16, "Harshali", 3000L, "Harshali@gmail.com", itDept));
+		 
+		 // salaryListForAllDept(empMap);
+		Map<Department, List<Employee>> collect2 = empMap.values().stream().collect(Collectors.groupingBy(e->e.getDept(),Collectors.filtering(e->e.getSalary()==e.getSalary(),Collectors.toList())));
+		//collect2.values().stream().mapToDouble(Employee::getSalary));
+		 System.out.println("-------------------------------------");
+		 System.out.println(collect2);
+		 // highestSalaryInEachDepartment(empMap);
+		 Map<Department, Optional<Employee>> collect8 = empMap.values().stream().collect(Collectors.groupingBy(e->e.getDept(),Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+		 System.out.println(collect8);
+		 // salaryListForHRDept(empMap);
+		 Map<Department, List<Employee>> collect9 = empMap.values().stream().collect(Collectors.groupingBy(e->e.getDept(),Collectors.filtering(e->e.getDept().getDeptString().equalsIgnoreCase("HR"),Collectors.toList())));
+		 System.out.println(collect9);
+		//keySet().stream().mapToInt(e->e.get).summaryStatistics().getMax();
+		 /*{
+			    3000.0=[Employee [empno=16, empName=Harshali, salary=3000.0, email=Harshali@gmail.com, dept=Department [id=3, deptString=IT
+			            ]
+			        ], Employee [empno=6, empName=Harshali, salary=3000.0, email=Harshali@gmail.com, dept=Department [id=1, deptString=HR
+			            ]
+			        ]
+			    ],
+			    4000.0=[Employee [empno=14, empName=Harshneeta, salary=4000.0, email=Harshneeta@gmail.com, dept=Department [id=3, deptString=IT
+			            ]
+			        ], Employee [empno=4, empName=Harshneeta, salary=4000.0, email=Harshneeta@gmail.com, dept=Department [id=1, deptString=HR
+			            ]
+			        ]
+			    ],
+			    2000.0=[Employee [empno=12, empName=Harshita, salary=2000.0, email=Harshitha@gmail.com, dept=Department [id=2, deptString=CORP
+			            ]
+			        ], Employee [empno=5, empName=Harshal, salary=2000.0, email=Harshal@gmail.com, dept=Department [id=1, deptString=HR
+			            ]
+			        ], Employee [empno=2, empName=Harshita, salary=2000.0, email=Harshitha@gmail.com, dept=Department [id=1, deptString=HR
+			            ]
+			        ], Employee [empno=15, empName=Harshal, salary=2000.0, email=Harshal@gmail.com, dept=Department [id=3, deptString=IT
+			            ]
+			        ]
+			    ],
+			    1000.0=[Employee [empno=1, empName=Harsh, salary=1000.0, email=Harsh@gmail.com, dept=Department [id=1, deptString=HR
+			            ]
+			        ], Employee [empno=13, empName=Harshad, salary=1000.0, email=Harshad@gmail.com, dept=Department [id=2, deptString=CORP
+			            ]
+			        ], Employee [empno=11, empName=Harshi, salary=1000.0, email=Harsh@gmail.com, dept=Department [id=2, deptString=CORP
+			            ]
+			        ], Employee [empno=3, empName=Harshad, salary=1000.0, email=Harshad@gmail.com, dept=Department [id=1, deptString=HR
+			            ]
+			        ]
+			    ]
+			}*/
+		 
+		 
+		 //print the employee names 
+		 List<String> collect7 = empMap.values().stream().map(e->e.getEmpName()).collect(Collectors.toList());
+		 System.out.println(collect7);
+		 
+		 
+		 //print the group the manes and occurancein multi lines first line is name and occurance and second line is only duplicate names
+		 Map<String, Long> collect3 = empMap.values().stream().collect(Collectors.groupingBy(Employee::getEmpName,Collectors.counting()));
+		 System.out.println(collect3);
+		 
+		 
+		 Set<String> collect5 = collect3.entrySet().stream().filter(e->e.getValue()>1).map(e->e.getKey()).collect(Collectors.toSet());//.map(e->e.getKeys());
+		 System.out.println(collect5);
+		 
+		 
+		 //single line code for above condition
+		 Set<String> collect6 = collect7.stream().filter(e->Collections.frequency(collect7, e)>1).collect(Collectors.toSet());
+		 System.out.println(collect6);
+		 
+		 
+		 //collect5.stream().map(e->e.chars()).forEach(e->System.out.println(e));//.filter(e->Collections.frequency(collect5, e)>1);
+		 System.out.println(empMap.values().stream().mapToDouble(e->e.getSalary()).summaryStatistics().getAverage());
+		 System.out.println(empMap.values().stream().mapToDouble(e->e.getSalary()).summaryStatistics().getCount());
+		 System.out.println(empMap.values().stream().mapToDouble(e->e.getSalary()).summaryStatistics().getMax());
+		 System.out.println(empMap.values().stream().mapToDouble(e->e.getSalary()).summaryStatistics().getMin());
+		 System.out.println(empMap.values().stream().mapToDouble(e->e.getSalary()).summaryStatistics().getSum());
+		 System.out.println(empMap.values().stream().mapToDouble(e->e.getSalary()).summaryStatistics().getClass());
+		 
+		 //second and third highest salar
+		double[] array = empMap.values().stream().mapToDouble(e->e.getSalary()).distinct().sorted().skip(1).limit(2).sequential().toArray();
+		 Arrays.stream(array).forEachOrdered(System.out::println);
+		 //toget names in uppercase and join (delimiter,) and gat as a single string sorting order of names
+		// String collect3 = empMap.values().stream().sorted().map(e->e.getEmpName()).collect(Collectors.joining(", "));
+		// System.out.println(collect3);
+		 
+		 
+		 //to get the only duplicate names
+		 List<String> list = empMap.values().stream().map(e->e.getEmpName()).toList();
+		 HashSet<String> nameSet= new HashSet<>();
+		 
+		 Set<String> collect4 = list.stream().filter(e->!nameSet.add(e)).collect(Collectors.toSet());
+		 System.out.println(collect4);
+		 System.out.println(nameSet);
+		 System.out.println("--------------kjhglkfdjnvlkjf-----------------------");
+
+		 
+		 List<Department> colle = empMap
+				 .values()
+				 .stream()
+				 .map(x->x.getDept())
+				 .collect(Collectors.toList());
+		 List<Department> dept = colle
+				 .stream()
+				 .filter(x->x.getDeptString().equalsIgnoreCase("HR"))
+				 .collect(Collectors.toList());
+		 System.out.println(dept);
+
+		 empMap
+		 .values()
+		 .stream()
+		 .collect(Collectors.groupingBy(Employee::getDept));
+		 //dept
+		 //System.out.println(dept);
+		 /*
+		  * empMap.values().stream().map(x->x.getSalary()).sorted(Comparator.reverseOrder
+		  * ()); Optional<Employee> findFirst2 =
+		  * empMap.values().stream().sorted(Comparator.comparingDouble(Employee::
+		  * getSalary).reversed()).findFirst(); //collect.keySet().stream().
+		  * //collect.values().stream().filter(x->x.) System.out.println(findFirst2);
+		  */
+
+
+		 Map<Department, Optional<Employee>> collect = 
+				 empMap
+				 .values().
+				 stream()
+				 .collect(Collectors.groupingBy(Employee::getDept,Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+
+		 //empMap.keySet().stream().collect(Collectors.groupingBy(Employee::getDept),Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+		 //Optional<Employee> findFirst2 = collect.values().stream().
+		 
+		   //collect.values().stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).findFirst(); //collect.keySet().stream().
+		   //collect.values().stream().filter(x->x.) System.out.println(collect);
+		  		 
+
+		 //List<Employee> collect = empMap.values().stream().collect(Collectors.toList());
+		 //Map<Department, List<Employee>> collect2 = collect.stream().collect(Collectors.groupingBy(Employee::getDept));
+		 // Optional<Employee> findFirst2 = collect.values().stream().
+		 //collect.values().stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).findFirst(); // collect.keySet().stream().
+		 // collect.values().stream().filter(x->x.) System.out.println(collect);
+
+		 //System.out.println(collect);
+
+	}
+
+	private void printSumOfAllNumbers() {
+		List<Integer> sortnum = Arrays.asList(34, 46, 7657, 878, 9879, 8, 98, 94, 64, 7576, 8, 34, 878, 6, 6887, 878,
+				453, 434);
+		//avoid the duplicate values and round the sum value
+		int[] numb = { 35, 67, 97, 45, 2435, 769, 435, 24, 8, 678, 66, 98 };
+		Optional<Integer> first = sortnum.stream().sorted(Comparator.reverseOrder()).distinct().findFirst();
+		// System.out.println(first);
+		
+		Optional<Integer> findFirst = sortnum.stream().sorted(Comparator.reverseOrder()).findFirst();
+		// System.out.println(findFirst);
+		// ---------------------------- print the elements
+		// System.out.println(sortnum.stream().count());
+		// results.entrySet().stream().filter(s->s.getKey().getEmpName()=="satwik").forEach(System.out::println);;
+
+		double orElse = sortnum.stream().mapToInt(Integer::intValue)
+				.average()
+				.stream()
+				.map(Math::round)
+				.findFirst()
+				.orElse(0);
+
+		System.out.println(orElse);
+
+		//avoid the duplicate values and round the sum value
+		Integer integer = sortnum
+				.stream()
+				.distinct()
+				.reduce((x,y)->x+y).get();
+		long sum2 = sortnum.stream().distinct().mapToInt(e->e).summaryStatistics().getSum();
+
+		System.out.println("-----------"+integer+"------------"+sum2);
+		// count the number of elements
+		System.out.println(sortnum
+				.stream()
+				.count());
+
+		//round the average value 
+		System.out.println(Math.round(sortnum.stream()
+				.mapToInt(Integer::intValue)
+				.average()
+				.stream().map(Math::round)
+				.findFirst()
+				.getAsDouble()));
+		//print square values in given condition
+		System.out.println(sortnum
+				.stream()
+				.map(x->x*x)
+				.filter(x->x>10000)
+				.filter(x->x<450000)
+				.map(e->e)
+				.collect(Collectors.toList()));
+		//print even numbers
+		sortnum
+		.stream()
+		.filter(x->x%2==0)
+		.collect(Collectors.toList());
+
+		//Starts with given number
+
+		List<Integer> collect = sortnum
+				.stream()
+				.map(e->String.valueOf(e))
+				.filter(s->s.startsWith("8"))
+				.map(Integer::valueOf)
+				.collect(Collectors.toList());
+		System.out.println(collect);
+		//print duplicate values 
+
+		Set<Integer> has= new HashSet<Integer>();
+
+		Set<Integer> collect3 = sortnum.stream()
+				.filter(e->!has.add(e)).collect(Collectors.toSet());
+
+		System.out.println(collect3);
+
+		//print duplicate values
+		Set<Integer> collect2 = sortnum
+				.stream()
+				.filter(e->Collections.frequency(sortnum, e)>1)
+				.collect(Collectors.toSet());
+		System.out.println(collect2);
+		// find max value
+
+		Integer integer2 = sortnum
+		.stream().max(Comparator.comparing(Integer::intValue)).get();
+		
+		sortnum.stream().max(Comparator.comparing(Integer::valueOf)).get();//sortnum.stream().mapToInt(Integer::intValue).max();
+
+		System.out.println(integer2);
+		//find minimum value
+		Integer integer3 = sortnum
+		.stream().min(Comparator.comparing(Integer::valueOf)).get();
+		System.out.println(integer3);
+		
+		//print sorted values
+		
+		List<Integer> list = sortnum.stream().sorted().toList();
+		System.out.println(list);
+		//print reverse sorted  values
+		List<Integer> list2 = sortnum.stream().sorted(Comparator.reverseOrder()).toList();
+		System.out.println(list2);
+		//print the limited values
+		List<Integer> list3 = sortnum.stream().limit(10).toList();
+		System.out.println(list3);
+		//print the sum of limited values
+		Integer integer4 = sortnum.stream().limit(10).reduce((x,y)->x+y).get();
+		System.out.println(integer4);
+		//print the sum of values 
+		sortnum.stream().mapToInt(Integer::intValue).sum();
+		//print the group of values
+		System.out.println(sortnum.stream().collect(Collectors.summarizingInt(Integer::valueOf)));
+		// skip some values and then print the remaining values
+		List<Integer> list5 = sortnum.stream().skip(10).toList();
+		System.out.println(list5);
+		
+		/*To calculate the sum of these integers, first we need to convert that String into an Array. 
+		Next we need to filter out the non-integer elements, and finally, convert the remaining elements of that array into numbers.*/
+		
+		String string = "Item1 10 Item2 25 Item3 30 Item4 45";
+
+		Integer sum = Arrays.stream(string.split(" "))
+		    .filter((s) -> s.matches("\\d+"))//d-> digits in regular expressions 
+		    .mapToInt(Integer::valueOf)
+		    .sum();
+		System.out.println(sum);
+		//System.out.println(max);
+
+	}
+
+}
